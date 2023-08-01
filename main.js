@@ -11,72 +11,59 @@ alert("Bienvenido al sistema de simulación de crédito hipotecario")
 
 
 //Declaración de la función
-function demo(x,y){
-    return (Math.pow(x,y))
+function demo(x, y) {
+    return (Math.pow(x, y))
+}
+
+function calculos(porcentaje, valor) {
+    let prestamo = (porcentaje / 100) * valor
+    alert("El prestamo solicitado es de: " + prestamo + " $")
+
+    // 4. Plazo en meses
+    const nummeses = 360
+
+    // 5. Declaración tasa de interés mensual
+    const tasa = 0.0025
+    alert("A continuación se calculará el valor de las cuotas con una tasa de intéres del: 0.25%")
+
+    // 5. Se calcula la cuota mensual   
+    let base = 1 + tasa
+    let valorActual = demo(base, nummeses)
+
+    let suma = prestamo * ((valorActual * tasa) / (valorActual - 1)) 
+
+    alert("La cuota mensual es de: "+ suma.toFixed(2))
+
+    return suma
 }
 
 // 1. Valor de la vivienda
-let v = parseInt(prompt("Ingresa el valor de la vivienda, sin puntos ni comas"))
-alert("El monto ingresado fue: "+v)
+let valor = parseInt(prompt("Ingresa el valor de la vivienda, sin puntos ni comas"))
+alert("El monto ingresado fue: " + valor)
 
 // 2. Valor del préstamo en %
-let p = parseInt(prompt("¿Cuanto dinero necesitas?: 10, 20, 30, 40, 50, 60 ó 70"+"%"+" (Ingresa solo el número)"))
+let porcentaje = parseInt(prompt("¿Cuanto dinero necesitas?: 10, 20, 30, 40, 50, 60 ó 70" + "%" + " (Ingresa solo el número)"))
 
+if (porcentaje != 10 && porcentaje != 20 && porcentaje != 30 && porcentaje != 40 && porcentaje != 50 && porcentaje != 60 && porcentaje != 70) {
 
-if(p != 10 && p!= 20 && p != 30 && p!= 40 && p != 50 && p != 60 && p != 70){
-
-    let bool = false;
+    let continuar = false;
 
     alert("Valor incorrecto, por favor ingrese una de las opciones")
 
-    while(bool == false){
+    while (continuar == false) {
 
-        let p = parseInt(prompt("¿Cuanto dinero necesitas?: 10, 20, 30, 40, 50, 60 ó 70"+"%"+" (Ingresa solo el número)"))
-        
-        if(p == 10 || p == 20 || p == 30 || p== 40 || p == 50 || p == 60 || p == 70){
-            bool = true
-            // 3. Valor en pesos del préstamo en $
-            p1 = (p/100)*v
-            alert("El prestamo solicitado es de: "+ p1 +" $")    
+        let porcentaje = parseInt(prompt("¿Cuanto dinero necesitas?: 10, 20, 30, 40, 50, 60 ó 70" + "%" + " (Ingresa solo el número)"))
 
-            // 4. Plazo en meses
-            const n = 360
+        if (porcentaje == 10 || porcentaje == 20 || porcentaje == 30 || porcentaje == 40 || porcentaje == 50 || porcentaje == 60 || porcentaje == 70) {
+            continuar = true
 
-            // 5. Declaración tasa de interés mensual
-            const t = 0.0025      
-            alert("A continuación se calculará el valor de las cuotas con una tasa de intéres del: 0.25%")
+            calculos(porcentaje,valor)            
 
-            // 5. Se calcula la cuota mensual   
-            let base = 1+t
-            let val1 = demo(base,n)
-
-            let sim = p1 * (( val1 * t ) / ( val1 - 1 ))
-
-            alert("La cuota mensual es de: "+sim.toFixed(2))
-        }else{
-            bool = false;
-        }              
+        } else {
+            continuar = false;
+        }
     }
-}else{
 
-// 3. Valor en pesos del préstamo en $
-p1 = (p/100)*v
-alert("El prestamo solicitado es de: "+ p1 +" $")    
-
-// 4. Plazo en meses
-const n = 360
-
-// 5. Declaración tasa de interés mensual
-const t = 0.0025      
-alert("A continuación se calculará el valor de las cuotas con una tasa de intéres del: 0.25%")
-
-// 5. Se calcula la cuota mensual   
-let base = 1+t
-let val1 = demo(base,n)
-
-let sim = p1 * (( val1 * t ) / ( val1 - 1 ))
-
-alert("La cuota mensual es de: "+sim.toFixed(2))
-
+} else {
+    calculos(porcentaje,valor)
 }
-
